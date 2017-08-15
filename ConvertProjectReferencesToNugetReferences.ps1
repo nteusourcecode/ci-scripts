@@ -1,5 +1,5 @@
 function Convert-ProjectReferences-To-NugetReferences ($projpath, $projname) {
-	$packagesConfig = $projpath + 'packages.config'
+	$packagesConfig = $projpath + '\' + $projname +'\packages.config'
 	$docPackagesConfig = (Get-Content $packagesConfig) -as [Xml]
 	$newAppSetting = $docPackagesConfig.CreateElement("package")
 	$docPackagesConfig.packages.AppendChild($newAppSetting)
@@ -8,7 +8,7 @@ function Convert-ProjectReferences-To-NugetReferences ($projpath, $projname) {
 	$newAppSetting.SetAttribute("targetFramework","net46");
 	$docPackagesConfig.Save($packagesConfig)
 
-	$csproj =  $projpath + $projname + '.csproj'
+	$csproj =  $projpath + '\' + $projname + '\' +$projname + '.csproj'
 	$docCsproj = (Get-Content $csproj) -as [Xml]
 	$csrefToRemove = $docCsproj.Project.ItemGroup.ProjectReference | Where-Object {$_.Name -eq "hellosupportl1" } | ForEach-Object {
 		# Remove each node from its parent
@@ -16,7 +16,7 @@ function Convert-ProjectReferences-To-NugetReferences ($projpath, $projname) {
 	}
 	$docCsproj.Save($csproj)
 	
-	$slnProj = $projpath + $projname + '.sln'
+	$slnProj = $projpath + '\' + $projname + '.sln'
 	$docSlnProj = (Get-Content $slnProj)
 	$lineNumberToDelete = $docSlnProj |Select-String -Pattern "hellosupportl1" -CaseSensitive | Select-Object LineNumber
 	$docSlnProj2 = $docSlnProj | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}}
