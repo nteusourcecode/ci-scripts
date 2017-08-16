@@ -1,6 +1,6 @@
 param (
     [string]$projpath = $null,
-    [string]$projname = $null,
+    [string]$projname = $null
 )
 
 Write-Host "begin ConvertProjectReferencesToNugetReferences"
