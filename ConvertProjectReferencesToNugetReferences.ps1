@@ -7,7 +7,9 @@ function Convert-ProjectReferences-To-NugetReferences ($projpath, $projname) {
 	$newAppSetting.SetAttribute("version","1.0.0");
 	$newAppSetting.SetAttribute("targetFramework","net46");
 	$docPackagesConfig.Save($packagesConfig)
-
+	Write-Host $packagesConfig
+	Write-Host $docPackagesConfig
+	
 	$csproj =  $projpath + '\' + $projname + '\' +$projname + '.csproj'
 	$docCsproj = (Get-Content $csproj) -as [Xml]
 	$csrefToRemove = $docCsproj.Project.ItemGroup.ProjectReference | Where-Object {$_.Name -eq "hellosupportl1" } | ForEach-Object {
