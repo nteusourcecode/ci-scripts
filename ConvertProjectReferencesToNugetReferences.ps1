@@ -1,4 +1,10 @@
-function Convert-ProjectReferences-To-NugetReferences ($projpath, $projname) {
+param (
+    [string]$projpath = $null,
+    [string]$projname = $null,
+)
+
+Write-Host "begin ConvertProjectReferencesToNugetReferences"
+
 	$packagesConfig = $projpath + '\' + $projname +'\packages.config'
 	$docPackagesConfig = (Get-Content $packagesConfig) -as [Xml]
 	$newAppSetting = $docPackagesConfig.CreateElement("package")
@@ -37,4 +43,4 @@ function Convert-ProjectReferences-To-NugetReferences ($projpath, $projname) {
 	$lineNumberToDelete = $docSlnProj |Select-String -Pattern "hellosupportl1" -CaseSensitive | Select-Object LineNumber
 	$docSlnProj2 = $docSlnProj | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}}
 	$docSlnProj2 | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}} | Set-Content -Path $slnProj
-}
+
