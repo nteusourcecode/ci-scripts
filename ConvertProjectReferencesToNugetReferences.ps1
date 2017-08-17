@@ -17,7 +17,7 @@ $docSlnProj = (Get-Content $slnProj)
 
 #Find Project References
 $nugetprojToAdd = $docCsproj.Project.ItemGroup.ProjectReference | ForEach-Object {
-	if (-not ([string]::IsNullOrEmpty($_.Name)))
+	if (-not ([string]::IsNullOrWhiteSpace($_.Name)))
 	{
 		$NugetPackagesToAdd.Add($_.Name)
 	}
@@ -27,7 +27,7 @@ Write-Host ("References found: " + $NugetPackagesToAdd)
 
 #Remove Existing References from the list of references to add
 $nugetprojToRemove = $docPackagesConfig.packages.package | ForEach-Object {
-	if (-not ([string]::IsNullOrEmpty($_.id)))
+	if (-not ([string]::IsNullOrWhiteSpace($_.id)))
 	{
 		$NugetPackagesToAdd.Remove($_.id)
 	}
