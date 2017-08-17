@@ -7,8 +7,8 @@ param (
 $packagesConfig = $projpath + '\' + $projname +'\packages.config'
 $docPackagesConfig = (Get-Content $packagesConfig) -as [Xml]
 
-$packagesConfig = 'C:\Users\joel.mccune\Documents\temp\packages.config'
-$docPackagesConfig = (Get-Content $packagesConfig) -as [Xml]
+$csProj = $projpath + '\' + $projname +'\' + $projname + '.csproj'
+$docCsproj = (Get-Content $csProj) -as [Xml]
 
 $slnProj = $projpath + '\' + $projname + '.sln'
 $docSlnProj = (Get-Content $slnProj)
