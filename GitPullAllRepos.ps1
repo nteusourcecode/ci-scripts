@@ -1,4 +1,4 @@
-$dirs = Get-ChildItem -Path . | Where-Object {$_.PSIsContainer -eq $True}
+$dirs = Get-ChildItem -Path ../ | Where-Object {$_.PSIsContainer -eq $True}
 $back = pwd
 foreach ($dir in $dirs)
 {
