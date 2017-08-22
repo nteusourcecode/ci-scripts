@@ -73,5 +73,5 @@ $NugetPackagesToAdd | ForEach-Object {
 	$docSlnProj2 = $docSlnProj | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}}
 	$docSlnProj2 | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}} | Set-Content -Path $slnProj
 
-	Install-Package $currentPackageToAdd -Project MvcApplication1 $csProj
+	Install-Package $currentPackageToAdd -Project $csProj
 }
