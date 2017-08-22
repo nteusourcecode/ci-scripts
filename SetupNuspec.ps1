@@ -1,5 +1,5 @@
 [string]$nuspecPath = $env:pathvarable,
-[string]$projectName = $env:
+[string]$projectName = $env:projectName
 [string]$buildVersion = $env:APPVEYOR_BUILD_VERSION
 
 $xmlPath = ($nuspecPath + "\" + $projectName + ".nuspec")
