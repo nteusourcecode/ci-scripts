@@ -8,6 +8,7 @@ $xml.package.metadata.id = $projectName
 $xml.package.metadata.version = $buildVersion
 $xml.package.metadata.authors = "NTEU Developer Team"
 $xml.package.metadata.owners = "NTEU"
+$xml.package.metadata.description = "Automatic Package Build For Referenced Projects"
 
 $nodes = $xml.package.ChildNodes
 $nodes | % {
@@ -27,11 +28,6 @@ $nodes | % {
 		$_.RemoveChild($child_node) | Out-Null
 	}
 	$child_node = $_.SelectSingleNode('requireLicenseAcceptance')
-	if($child_node)
-	{
-		$_.RemoveChild($child_node) | Out-Null
-	}
-	$child_node = $_.SelectSingleNode('description')
 	if($child_node)
 	{
 		$_.RemoveChild($child_node) | Out-Null
