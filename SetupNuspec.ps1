@@ -4,7 +4,7 @@ param (
 	[string]$buildVersion = $null
 )
 
-$xmlPath = $nuspecPath
+$xmlPath = $nuspecPath + "\" + $projectName + ".nuspec"
 $xml = [xml](get-content $xmlPath)
 $xml.package.metadata.id = $projectName
 $xml.package.metadata.version = $buildVersion
