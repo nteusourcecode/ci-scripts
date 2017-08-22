@@ -1,4 +1,4 @@
-[string]$nuspecPath = $env:PROJECT_PATH,
+[string]$nuspecPath = $env:PROJECT_PATH
 [string]$projectName = $env:PROJECT_NAME
 [string]$buildVersion = $env:APPVEYOR_BUILD_VERSION
 
