@@ -1,8 +1,6 @@
-param (
-    [string]$nuspecPath = $null,
-    [string]$projectName = $null,
-	[string]$buildVersion = $null
-)
+[string]$nuspecPath = $env:pathvarable,
+[string]$projectName = $env:
+[string]$buildVersion = $env:APPVEYOR_BUILD_VERSION
 
 $xmlPath = ($nuspecPath + "\" + $projectName + ".nuspec")
 $xml = [xml](get-content $xmlPath)
