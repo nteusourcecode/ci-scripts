@@ -12,7 +12,7 @@ $xml.package.metadata.authors = "NTEU Developer Team"
 $xml.package.metadata.owners = "NTEU"
 $nodes = $xml.package.ChildNodes
 $nodes | % {
-    $child_node = $_.SelectSingleNode('licenseUrl')
+	$child_node = $_.SelectSingleNode('licenseUrl')
 	if($child_node)
 	{
 		$_.RemoveChild($child_node) | Out-Null
