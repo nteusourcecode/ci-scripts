@@ -39,12 +39,12 @@ $NugetPackagesToAdd | ForEach-Object {
 	$currentPackageToAdd = $_
 
 	#BEGIN update packages.confg
-	$newAppSetting = $docPackagesConfig.CreateElement("package", $docPackagesConfig.DocumentElement.NamespaceURI)
-	$docPackagesConfig.packages.AppendChild($newAppSetting)
-	$newAppSetting.SetAttribute("id", $currentPackageToAdd);
-	$newAppSetting.SetAttribute("version","1.0.0");
-	$newAppSetting.SetAttribute("targetFramework","net46");
-	$docPackagesConfig.Save($packagesConfig)
+	#$newAppSetting = $docPackagesConfig.CreateElement("package", $docPackagesConfig.DocumentElement.NamespaceURI)
+	#$docPackagesConfig.packages.AppendChild($newAppSetting)
+	#$newAppSetting.SetAttribute("id", $currentPackageToAdd);
+	#$newAppSetting.SetAttribute("version","1.0.0");
+	#$newAppSetting.SetAttribute("targetFramework","net46");
+	#$docPackagesConfig.Save($packagesConfig)
 	
 	#BEGIN update .csproj
 	$csrefToRemove = $docCsproj.Project.ItemGroup.ProjectReference | Where-Object {$_.Name -eq $currentPackageToAdd } | ForEach-Object {
@@ -53,18 +53,18 @@ $NugetPackagesToAdd | ForEach-Object {
 	}
 	
 	#Add package reference
-	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
-	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsHintPath.InnerXml = "..\packages\" + $currentPackageToAdd + ".1.0.0\lib\net46\" + $currentPackageToAdd + ".dll"
-	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsRefPrivate.InnerXml = "True"
+	#$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
+	#$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
+	#$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
+	#$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
+	#$newcsHintPath.InnerXml = "..\packages\" + $currentPackageToAdd + ".1.0.0\lib\net46\" + $currentPackageToAdd + ".dll"
+	#$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
+	#$newcsRefPrivate.InnerXml = "True"
 
-	$newcsReference.AppendChild($newcsHintPath)
-	$newcsReference.AppendChild($newcsRefPrivate)
-	$newcsItemGroup.AppendChild($newcsReference)
-	$docCsproj.Project.AppendChild($newcsItemGroup)	
+	#$newcsReference.AppendChild($newcsHintPath)
+	#$newcsReference.AppendChild($newcsRefPrivate)
+	#$newcsItemGroup.AppendChild($newcsReference)
+	#$docCsproj.Project.AppendChild($newcsItemGroup)	
 	
 	$docCsproj.Save($csproj)
 	
@@ -72,4 +72,6 @@ $NugetPackagesToAdd | ForEach-Object {
 	$lineNumberToDelete = $docSlnProj |Select-String -Pattern $currentPackageToAdd -CaseSensitive | Select-Object LineNumber
 	$docSlnProj2 = $docSlnProj | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}}
 	$docSlnProj2 | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}} | Set-Content -Path $slnProj
+
+	Install-Package $currentPackageToAdd -Project MvcApplication1 $csProj
 }
