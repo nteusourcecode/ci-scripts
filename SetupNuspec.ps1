@@ -1,5 +1,5 @@
-[string]$nuspecPath = $env:pathvarable,
-[string]$projectName = $env:projectName
+[string]$nuspecPath = $env:PROJECT_PATH,
+[string]$projectName = $env:PROJECT_NAME
 [string]$buildVersion = $env:APPVEYOR_BUILD_VERSION
 
 $xmlPath = ($nuspecPath + "\" + $projectName + ".nuspec")
@@ -56,6 +56,8 @@ $nodes | % {
 		$_.RemoveChild($child_node) | Out-Null
 	}
 }
+
 Write-Host ($projectName +".nuspec has been updated.")
 Write-Host ($projectName +".nuspec version: " + $buildVersion)
+
 $xml.Save($xmlPath)
