@@ -42,7 +42,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$newAppSetting = $docPackagesConfig.CreateElement("package", $docPackagesConfig.DocumentElement.NamespaceURI)
 	$docPackagesConfig.packages.AppendChild($newAppSetting)
 	$newAppSetting.SetAttribute("id", $currentPackageToAdd);
-	$newAppSetting.SetAttribute("version","1.0.0");
+	$newAppSetting.SetAttribute("version","1.*");
 	$newAppSetting.SetAttribute("targetFramework","net46");
 	$docPackagesConfig.Save($packagesConfig)
 	
@@ -72,6 +72,4 @@ $NugetPackagesToAdd | ForEach-Object {
 	$lineNumberToDelete = $docSlnProj |Select-String -Pattern $currentPackageToAdd -CaseSensitive | Select-Object LineNumber
 	$docSlnProj2 = $docSlnProj | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}}
 	$docSlnProj2 | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}} | Set-Content -Path $slnProj
-
-	Get-Package -ListAvailable
 }
