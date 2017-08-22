@@ -36,6 +36,12 @@ $nugetprojToRemove = $docPackagesConfig.packages.package | ForEach-Object {
 Write-Host ("Packages to add: " + $NugetPackagesToAdd)
 
 #Create NTEU Package XML
+if (!(Test-Path $env:NTEU_PACKAGES_PATH))
+{
+   New-Item -path $env:NTEU_PACKAGES_PATH -type "file"
+   Write-Host "Created new file NTEU Package XML"
+}
+
 $XML_Path = $env:NTEU_PACKAGES_PATH
 $xmlWriter = New-Object System.XMl.XmlTextWriter($XML_Path,$Null)
 $xmlWriter.Formatting = 'Indented'
