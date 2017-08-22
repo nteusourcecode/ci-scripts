@@ -1,6 +1,7 @@
 param (
     [string]$projpath = $null,
-    [string]$projname = $null
+    [string]$projname = $null,
+    [System.Collections.ArrayList]$NugetPackagesToAddP = $null
 )
 
 #Files to modify
@@ -73,3 +74,5 @@ $NugetPackagesToAdd | ForEach-Object {
 	$docSlnProj2 = $docSlnProj | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}}
 	$docSlnProj2 | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}} | Set-Content -Path $slnProj	
 }
+
+$NugetPackagesToAddP = $NugetPackagesToAdd
