@@ -1,4 +1,5 @@
-Import-Module WebAdministration #Make sure you have this module installed on your computer
+#Set app pool to always running
+Import-Module WebAdministration 
 $AppPoolName = $env:APPPOOL_NAME
 $AppPool = Get-Item IIS:\AppPools\$AppPoolName
 $AppPool.startMode = "alwaysrunning"
