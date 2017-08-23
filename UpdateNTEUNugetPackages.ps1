@@ -4,6 +4,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 	if($xmlDoc.NTEUPackages.HasChildNodes)
 	{
 		$xmlDoc.NTEUPackages |  ForEach-Object {
+		Write-Output $_.Package
        nuget update C:\projects\hello-world-p1\helloworldp1\helloworldp1.csproj -FileConflictAction overwrite -Id $_.Package
 		}
 	}
