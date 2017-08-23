@@ -44,21 +44,21 @@ $xmlWriter.Formatting = 'Indented'
 $xmlWriter.Indentation = 1
 $XmlWriter.IndentChar = "`t"
 $xmlWriter.WriteStartDocument()
-$xmlWriter.WriteComment('Get the Information about the web application')
-$xmlWriter.WriteEndDocument()
+$xmlWriter.WriteComment('These are the references that were converted into nuget packages.')
+$xmlWriter.WriteStartElement('NTEUPackages')
+$xmlWriter.WriteEndElement()
 $xmlWriter.Flush()
 $xmlWriter.Close()
 
 $xmlDoc = [xml](Get-Content $XML_Path);
-$siteCollectionNode = $xmlDoc.CreateElement("NTEUPackages", $xmlDoc.DocumentElement.NamespaceURI)
 
 $NugetPackagesToAdd | ForEach-Object {
 	$currentPackageToAdd = $_
 
 	#BEGIN Add package to NTEU Package XML
-	$proj1 = $xmlDoc.CreateElement("Package", $xmlDoc.DocumentElement.NamespaceURI)
-	$proj1.InnerText = $_
-	$siteCollectionNode.AppendChild($proj1)
+	$nugetPackageNameNode = $xmlDoc.CreateElement("Package", $xmlDoc.DocumentElement.NamespaceURI)
+	$nugetPackageNameNode.InnerText = "p2"
+	$xmlDoc.SelectSingleNode("//NTEUPackages").AppendChild($nugetPackageNameNode)
 
 	#BEGIN update packages.confg
 	$newAppSetting = $docPackagesConfig.CreateElement("package", $docPackagesConfig.DocumentElement.NamespaceURI)
@@ -96,5 +96,4 @@ $NugetPackagesToAdd | ForEach-Object {
 	$docSlnProj2 | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}} | Set-Content -Path $slnProj	
 }
 
- $xmlDoc.AppendChild($siteCollectionNode)
  $xmlDoc.Save($XML_Path)
