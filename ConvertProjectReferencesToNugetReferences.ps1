@@ -57,7 +57,7 @@ $NugetPackagesToAdd | ForEach-Object {
 
 	#BEGIN Add package to NTEU Package XML
 	$nugetPackageNameNode = $xmlDoc.CreateElement("Package", $xmlDoc.DocumentElement.NamespaceURI)
-	$nugetPackageNameNode.InnerText = "p2"
+	$nugetPackageNameNode.InnerText = $currentPackageToAdd
 	$xmlDoc.SelectSingleNode("//NTEUPackages").AppendChild($nugetPackageNameNode)
 
 	#BEGIN update packages.confg
