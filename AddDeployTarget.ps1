@@ -16,10 +16,10 @@ if(Test-Path $deployps1Path)
 
 	if(!($hasDeployPowershell.'$_.ItemGroup.Content.Include' -eq 'deploy.ps1'))
 	{
-		$target = $xml.CreateElement("Target", $xmlDoc.DocumentElement.NamespaceURI)
+		$target = $xml.CreateElement("Target", $xml.DocumentElement.NamespaceURI)
 		$target.SetAttribute("Name", "BeforeBuild")
-		$itemGroup = $xml.CreateElement("ItemGroup", $xmlDoc.DocumentElement.NamespaceURI)
-		$content = $xml.CreateElement("Content", $xmlDoc.DocumentElement.NamespaceURI)
+		$itemGroup = $xml.CreateElement("ItemGroup", $xml.DocumentElement.NamespaceURI)
+		$content = $xml.CreateElement("Content", $xml.DocumentElement.NamespaceURI)
 		$content.SetAttribute("Include", "deploy.ps1")
 		$itemGroup.AppendChild($content)
 		$target.AppendChild($itemGroup)
