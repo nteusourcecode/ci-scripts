@@ -1,16 +1,11 @@
-param (
-    [string]$projpath = $null,
-    [string]$projname = $null
-)
-
 #Files to modify
-$packagesConfig = $projpath + '\' + $projname +'\packages.config'
+$packagesConfig = $env:PROJECT_PACKAGES_PATH
 $docPackagesConfig = (Get-Content $packagesConfig) -as [Xml]
 
-$csProj = $projpath + '\' + $projname +'\' + $projname + '.csproj'
+$csProj = $env:PROJECT_CSPROJ_PATH
 $docCsproj = (Get-Content $csProj) -as [Xml]
 
-$slnProj = $projpath + '\' + $projname + '.sln'
+$slnProj = $env:PROJECT_SLN_PATH
 $docSlnProj = (Get-Content $slnProj)
 
 [System.Collections.ArrayList]$NugetPackagesToAdd = New-Object System.Collections.ArrayList
