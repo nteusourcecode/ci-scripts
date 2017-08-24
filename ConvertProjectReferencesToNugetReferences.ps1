@@ -21,7 +21,7 @@ $nugetprojToAdd = $docCsproj.Project.ItemGroup.ProjectReference | ForEach-Object
 Write-Host ("References found: " + $NugetPackagesToAdd)
 
 #Remove Existing References from the list of references to add
-$nugetprojToRemove = $docPackagesConfig.packages.package | ForEach-Object {
+$docPackagesConfig.packages.package | ForEach-Object {
 	if (-not ([string]::IsNullOrWhiteSpace($_.id)))
 	{
 		$NugetPackagesToAdd.Remove($_.id)
