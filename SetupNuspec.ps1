@@ -4,7 +4,7 @@
 
 if(!(Test-Path $env:PROJECT_NUSPEC_PATH))
 {
-	nuget spec $env:PROJECT_NUSPEC_PATH
+	nuget spec ($env:PROJECT_PATH + "\" + $env:PROJECT_NAME)
 }
 
 $xmlPath = $env:PROJECT_NUSPEC_PATH
