@@ -2,7 +2,12 @@
 [string]$projectName = $env:PROJECT_NAME
 [string]$buildVersion = $env:APPVEYOR_BUILD_VERSION
 
-$xmlPath = ($nuspecPath + "\" + $projectName + ".nuspec")
+if(!(Test-Path $env:PROJECT_NUSPEC_PATH))
+{
+	nuget spec $env:PROJECT_NUSPEC_PATH
+}
+
+$xmlPath = $env:PROJECT_NUSPEC_PATH
 $xml = [xml](get-content $xmlPath)
 $xml.package.metadata.id = $projectName
 $xml.package.metadata.version = $buildVersion
