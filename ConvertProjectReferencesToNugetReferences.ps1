@@ -91,7 +91,9 @@ $NugetPackagesToAdd | ForEach-Object {
 	#BEGIN update .sln
 	$lineNumberToDelete = $docSlnProj |Select-String -Pattern $currentPackageToAdd -CaseSensitive | Select-Object LineNumber
 	$docSlnProj2 = $docSlnProj | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}}
-	$docSlnProj2 | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}} | Set-Content -Path $slnProj	
+	$docSlnProj2 | Foreach {$n=1}{if (($n++) -ne ($lineNumberToDelete.LineNumber)) {$_}} | Set-Content -Path $slnProj
+	
+	nuget update $env:PROJECT_CSPROJ_PATH -FileConflictAction overwrite -Id $_.Package
 }
 
  $xmlDoc.Save($XML_Path)
