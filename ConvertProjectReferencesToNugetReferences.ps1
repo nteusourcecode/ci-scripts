@@ -51,8 +51,8 @@ $NugetPackagesToAdd | ForEach-Object {
 	$currentPackageToAdd = $_
 	#$currentPackageInAppveyorRepo = Find-Package $currentPackageToAdd
 	#Write-Host ("Adding Package " + $currentPackageInAppveyorRepo.Name + " Version: " + $currentPackageInAppveyorRepo.Version)
-	nuget sources
-        $packageIdVer = (nuget list $currentPackageToAdd -source AppVeyorAccountFeed) -split " "
+	#nuget sources
+        #$packageIdVer = (nuget list $currentPackageToAdd -source AppVeyorAccountFeed) -split " "
 	$currentPackageVersion = $packageIdVer[$packageIdVer.Count - 1]
 	Write-Host ("packageIdVer: " +  $packageIdVer)
 	Write-Host ("Adding Package " + $currentPackageToAdd + " Version: " + $currentPackageVersion)
@@ -81,9 +81,9 @@ $NugetPackagesToAdd | ForEach-Object {
 	#Add package reference
 	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
+	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=" + $currentPackageVersion + ", Culture=neutral, processorArchitecture=MSIL");
 	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsHintPath.InnerXml = "..\packages\" + $currentPackageToAdd + ".1.0.0\lib\net46\" + $currentPackageToAdd + ".dll"
+	$newcsHintPath.InnerXml = "..\packages\" + $currentPackageToAdd + "." + $currentPackageVersion +"\lib\net46\" + $currentPackageToAdd + ".dll"
 	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsRefPrivate.InnerXml = "True"
 
