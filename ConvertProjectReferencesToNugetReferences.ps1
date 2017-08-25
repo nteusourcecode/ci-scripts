@@ -91,7 +91,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$newcsReference.AppendChild($newcsRefPrivate)
 	$newcsItemGroup.AppendChild($newcsReference)
 	$docCsproj.Project.AppendChild($newcsItemGroup)	
-	
+	Write-Host $newcsItemGroup.ToString()
 	$docCsproj.Save($csproj)
 	
 	#BEGIN update .sln
