@@ -52,8 +52,8 @@ $NugetPackagesToAdd | ForEach-Object {
 	#$currentPackageInAppveyorRepo = Find-Package $currentPackageToAdd
 	#Write-Host ("Adding Package " + $currentPackageInAppveyorRepo.Name + " Version: " + $currentPackageInAppveyorRepo.Version)
 	nuget sources
-        $packageIdVer = (nuget list $currentPackageToAdd -source AppVeyorAccountFeed)
-	Write-Host ("Version: " + $packageIdVer.Version)
+        $packageIdVer = (nuget list $currentPackageToAdd -source AppVeyorAccountFeed) -split " "
+	$currentPackageVersion = $packageIdVer[1]
 	#BEGIN Add package to NTEU Package XML
 	$nugetPackageNameNode = $xmlDoc.CreateElement("Package", $xmlDoc.DocumentElement.NamespaceURI)
 	$nugetPackageNameNode.InnerText = $currentPackageToAdd
@@ -65,8 +65,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$packagesNode.AppendChild($newAppSetting)
 	#$docPackagesConfig.packages.AppendChild($newAppSetting)
 	$newAppSetting.SetAttribute("id", $currentPackageToAdd);
-	#$newAppSetting.SetAttribute("version", $currentPackageInAppveyorRepo.Version);
-	$newAppSetting.SetAttribute("version","1.0");
+	$newAppSetting.SetAttribute("version", $currentPackageVersion);
 	$newAppSetting.SetAttribute("targetFramework","net46");
 	$docPackagesConfig.Save($packagesConfig)
 	
