@@ -5,7 +5,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 	{
 		$xmlDoc.NTEUPackages |  ForEach-Object {
 		Write-Host $_.Package
-       nuget update C:\projects\hello-world-p1\helloworldp1\helloworldp1.csproj -FileConflictAction overwrite -Id $_.Package
-		}
+                nuget update $env:PROJECT_CSPROJ_PATH -FileConflictAction overwrite -Id $_.Package
+	    	}
 	}
 }
