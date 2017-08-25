@@ -91,8 +91,8 @@ $NugetPackagesToAdd | ForEach-Object {
 	$newcsReference.AppendChild($newcsRefPrivate)
 	$newcsItemGroup.AppendChild($newcsReference)
 	$docCsproj.Project.AppendChild($newcsItemGroup)	
-	Format-Xml -InputObject $docCsproj
 	$docCsproj.Save($csproj)
+	Get-Content $csproj
 	
 	#BEGIN update .sln
 	$lineNumberToDelete = $docSlnProj |Select-String -Pattern $currentPackageToAdd -CaseSensitive | Select-Object LineNumber
