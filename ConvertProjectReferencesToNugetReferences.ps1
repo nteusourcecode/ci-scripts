@@ -53,7 +53,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	#Write-Host ("Adding Package " + $currentPackageInAppveyorRepo.Name + " Version: " + $currentPackageInAppveyorRepo.Version)
 	nuget sources
         $packageIdVer = (nuget list $currentPackageToAdd -source AppVeyorAccountFeed) -split " "
-	$currentPackageVersion = $packageIdVer[1]
+	$currentPackageVersion = $packageIdVer[$packageIdVer.Count - 1]
 	Write-Host ("packageIdVer: " +  $packageIdVer)
 	Write-Host ("Adding Package " + $currentPackageToAdd + " Version: " + $currentPackageVersion)
 	
