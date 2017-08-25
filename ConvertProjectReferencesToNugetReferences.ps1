@@ -63,8 +63,8 @@ $NugetPackagesToAdd | ForEach-Object {
 	$packagesNode.AppendChild($newAppSetting)
 	#$docPackagesConfig.packages.AppendChild($newAppSetting)
 	$newAppSetting.SetAttribute("id", $currentPackageToAdd);
-	$newAppSetting.SetAttribute("version", $currentPackageInAppveyorRepo.Version);
-	#$newAppSetting.SetAttribute("version","1.0.0");
+	#$newAppSetting.SetAttribute("version", $currentPackageInAppveyorRepo.Version);
+	$newAppSetting.SetAttribute("version","1.0.0");
 	$newAppSetting.SetAttribute("targetFramework","net46");
 	$docPackagesConfig.Save($packagesConfig)
 	
