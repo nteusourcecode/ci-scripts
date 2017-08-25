@@ -46,7 +46,7 @@ $xmlWriter.Flush()
 $xmlWriter.Close()
 
 $xmlDoc = [xml](Get-Content $XML_Path);
-nuget sources add -Name appveyornteunuget -Source https://ci.appveyor.com/nuget/nteu-qnduw0oa0iuj -UserName joel.mccune@nteu.org -Password bhZ4BxGyh8JC
+
 $NugetPackagesToAdd | ForEach-Object {
 	$currentPackageToAdd = $_
 	$currentPackageInAppveyorRepo = Find-Package $currentPackageToAdd
