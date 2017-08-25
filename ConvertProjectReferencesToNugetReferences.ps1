@@ -49,7 +49,7 @@ $xmlDoc = [xml](Get-Content $XML_Path);
 
 $NugetPackagesToAdd | ForEach-Object {
 	$currentPackageToAdd = $_
-	$currentPackageInAppveyorRepo = Find-Package $currentPackageInAppveyorRepo.Name
+	$currentPackageInAppveyorRepo = Find-Package $currentPackageToAdd
 	Write-Host ("Adding Package " + $currentPackageInAppveyorRepo.Name + " Version: " + $currentPackageInAppveyorRepo.Version)
 
 	#BEGIN Add package to NTEU Package XML
