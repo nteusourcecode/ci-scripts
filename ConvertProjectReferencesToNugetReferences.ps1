@@ -49,6 +49,8 @@ $xmlDoc = [xml](Get-Content $XML_Path);
 
 $NugetPackagesToAdd | ForEach-Object {
 	$currentPackageToAdd = $_
+	$currentPackageInAppveyorRepo = Find-Package Elmah
+	Write-Host ("Adding Package " + $currentPackageInAppveyorRepo.Name + " Version: " + $currentPackageInAppveyorRepo.Version)
 
 	#BEGIN Add package to NTEU Package XML
 	$nugetPackageNameNode = $xmlDoc.CreateElement("Package", $xmlDoc.DocumentElement.NamespaceURI)
@@ -61,7 +63,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$packagesNode.AppendChild($newAppSetting)
 	#$docPackagesConfig.packages.AppendChild($newAppSetting)
 	$newAppSetting.SetAttribute("id", $currentPackageToAdd);
-	$newAppSetting.SetAttribute("version","1");
+	$newAppSetting.SetAttribute("version", $currentPackageInAppveyorRepo.Version);
 	#$newAppSetting.SetAttribute("version","1.0.0");
 	$newAppSetting.SetAttribute("targetFramework","net46");
 	$docPackagesConfig.Save($packagesConfig)
