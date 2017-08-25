@@ -92,7 +92,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$newcsItemGroup.AppendChild($newcsReference)
 	$docCsproj.Project.AppendChild($newcsItemGroup)	
 	$docCsproj.Save($csproj)
-	nuget install $currentPackageToAdd -source AppVeyorAccountFeed
+	nuget install $currentPackageToAdd -source All
 	Get-Content $csproj
 	
 	#BEGIN update .sln
