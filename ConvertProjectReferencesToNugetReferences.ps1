@@ -57,7 +57,9 @@ $NugetPackagesToAdd | ForEach-Object {
 
 	#BEGIN update packages.confg
 	$newAppSetting = $docPackagesConfig.CreateElement("package", $docPackagesConfig.DocumentElement.NamespaceURI)
-	$docPackagesConfig.packages.AppendChild($newAppSetting)
+	$packagesNode = $docPackagesConfig.SelectSingleNode("packages")
+	$packagesNode.AppendChild($newAppSetting)
+	#$docPackagesConfig.packages.AppendChild($newAppSetting)
 	$newAppSetting.SetAttribute("id", $currentPackageToAdd);
 	$newAppSetting.SetAttribute("version","1.0.0");
 	$newAppSetting.SetAttribute("targetFramework","net46");
