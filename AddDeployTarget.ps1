@@ -1,9 +1,9 @@
-$csProjPath = 'C:\projects\hello-world-p1\helloworldp1\helloworldp1.csproj'
-$deployps1Path = 'C:\projects\hello-world-p1\helloworldp1\deploy.ps1'
+$csProjPath = $env:PROJECT_CSPROJ_PATH
+$deployps1Path = $env:PROJECT_DEPLOY_PATH
 
 if(!(Test-Path $deployps1Path))
 {
-	Move-Item C:\ciscripts\deploy.ps1 C:\projects\hello-world-p1\helloworldp1
+	Copy-Item C:\ciscripts\deploy.ps1 $env:PROJECT_PATH
 }
 
 if(Test-Path $deployps1Path)
