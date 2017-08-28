@@ -74,9 +74,10 @@ $NugetPackagesToAdd | ForEach-Object {
 	
 	#BEGIN update .csproj
 	$csrefToRemove = $docCsproj.Project.ItemGroup.ProjectReference | Where-Object {$_.Name -eq $currentPackageToAdd } | ForEach-Object {
-		# Remove each node from its parent
+		#Remove each node from its parent
 		[void]$_.ParentNode.RemoveChild($_)
 	}
+	$docCsproj.Save($csproj)
 	
 	#Add package reference
  	#$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
