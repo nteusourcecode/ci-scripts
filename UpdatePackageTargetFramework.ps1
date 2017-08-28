@@ -10,7 +10,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		$xmlDocProjectConfig = [xml](Get-Content $env:PROJECT_PACKAGES_PATH);
 		$nodeToUpdate = $xmlDocProjectConfig.packages.SelectSingleNode("package[@id='$($_.id)']")
       		$nodeToUpdate.SetAttribute("targetFramework", $framework.Name)
-      		$xmlDocProjectConfig.Save($XML_Path)
+      		$xmlDocProjectConfig.Save($env:PROJECT_PACKAGES_PATH)
       		Write-Host "Update package $($_.id) target framework to $($framework.Name)"
 	    }
 	}
