@@ -71,6 +71,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$newAppSetting.SetAttribute("version", $currentPackageVersion);
 	$newAppSetting.SetAttribute("targetFramework","net46");
 	$docPackagesConfig.Save($packagesConfig)
+	Get-Content $packagesConfig
 	
 	#BEGIN update .csproj
 	$csrefToRemove = $docCsproj.Project.ItemGroup.ProjectReference | Where-Object {$_.Name -eq $currentPackageToAdd } | ForEach-Object {
