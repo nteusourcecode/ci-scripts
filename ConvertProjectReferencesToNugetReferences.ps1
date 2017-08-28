@@ -74,7 +74,9 @@ $NugetPackagesToAdd | ForEach-Object {
 	
 	#BEGIN Add package to NTEU Package XML
 	$nugetPackageNameNode = $xmlDoc.CreateElement("Package", $xmlDoc.DocumentElement.NamespaceURI)
-	$nugetPackageNameNode.InnerText = $currentPackageToAdd
+	#$nugetPackageNameNode.InnerText = $currentPackageToAdd
+	$nugetPackageNameNode.SetAttribute("id", $currentPackageToAdd)
+	$nugetPackageNameNode.SetAttribute("version", $currentPackageVersion)
 	$xmlDoc.SelectSingleNode("//NTEUPackages").AppendChild($nugetPackageNameNode)
 
 	#BEGIN update packages.confg
@@ -84,7 +86,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	#$docPackagesConfig.packages.AppendChild($newAppSetting)
 	$newAppSetting.SetAttribute("id", $currentPackageToAdd);
 	$newAppSetting.SetAttribute("version", $currentPackageVersion);
-	$newAppSetting.SetAttribute("targetFramework","net45");
+	#$newAppSetting.SetAttribute("targetFramework","net45");
 	$docPackagesConfig.Save($packagesConfig)
 	#Get-Content $packagesConfig
 	
