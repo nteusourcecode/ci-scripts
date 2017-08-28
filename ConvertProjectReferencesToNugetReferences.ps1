@@ -71,7 +71,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$newAppSetting.SetAttribute("version", $currentPackageVersion);
 	$newAppSetting.SetAttribute("targetFramework","net45");
 	$docPackagesConfig.Save($packagesConfig)
-	Get-Content $packagesConfig
+	#Get-Content $packagesConfig
 	
 	#BEGIN update .csproj
 	$csrefToRemove = $docCsproj.Project.ItemGroup.ProjectReference | Where-Object {$_.Name -eq $currentPackageToAdd } | ForEach-Object {
@@ -95,8 +95,8 @@ $NugetPackagesToAdd | ForEach-Object {
 	$newcsItemGroup.AppendChild($newcsReference)
 	$docCsproj.Project.AppendChild($newcsItemGroup)	
 	$docCsproj.Save($csproj)	
-	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
-	Get-Content $csproj
+	#nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
+	#Get-Content $csproj
 	
 	#BEGIN update .sln
 	$lineNumberToDelete = $docSlnProj |Select-String -Pattern $currentPackageToAdd -CaseSensitive | Select-Object LineNumber
