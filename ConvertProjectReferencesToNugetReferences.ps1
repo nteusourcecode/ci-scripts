@@ -80,21 +80,21 @@ $NugetPackagesToAdd | ForEach-Object {
 	$docCsproj.Save($csproj)
 	
 	#Add package reference
- 	#$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
-	#$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
-	#$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
-	#$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
-	#$newcsHintPath.InnerXml = $env:PACKAGES_PATH + $currentPackageToAdd + "." + $currentPackageVersion +"\lib\net46\" + $currentPackageToAdd + ".dll"
-	#$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
-	#$newcsRefPrivate.InnerXml = "True"
+ 	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
+	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
+	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
+	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
+	$newcsHintPath.InnerXml = $env:PACKAGES_PATH + $currentPackageToAdd + "." + $currentPackageVersion +"\lib\net46\" + $currentPackageToAdd + ".dll"
+	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
+	$newcsRefPrivate.InnerXml = "True"
 
-	#$newcsReference.AppendChild($newcsHintPath)
-	#$newcsReference.AppendChild($newcsRefPrivate)
-	#$newcsItemGroup.AppendChild($newcsReference)
-	#$docCsproj.Project.AppendChild($newcsItemGroup)	
-	#$docCsproj.Save($csproj)
-	nuget install $currentPackageToAdd
-	Get-Content $csproj
+	$newcsReference.AppendChild($newcsHintPath)
+	$newcsReference.AppendChild($newcsRefPrivate)
+	$newcsItemGroup.AppendChild($newcsReference)
+	$docCsproj.Project.AppendChild($newcsItemGroup)	
+	$docCsproj.Save($csproj)	
+	#nuget install $currentPackageToAdd
+	#Get-Content $csproj
 	
 	#BEGIN update .sln
 	$lineNumberToDelete = $docSlnProj |Select-String -Pattern $currentPackageToAdd -CaseSensitive | Select-Object LineNumber
