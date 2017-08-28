@@ -1,5 +1,20 @@
 #Files to modify
 $packagesConfig = $env:PROJECT_PACKAGES_PATH
+if(!(Test-Path $packagesConfig))
+{
+	New-Item -path $packagesConfig -type "file" -Force
+	Write-Host "Created new packages.config"
+	$XML_Path = $packagesConfig
+	$xmlWriter = New-Object System.XMl.XmlTextWriter($XML_Path,$Null)
+	$xmlWriter.Formatting = 'Indented'
+	$xmlWriter.Indentation = 1
+	$XmlWriter.IndentChar = "`t"
+	$xmlWriter.WriteStartDocument()
+	$xmlWriter.WriteStartElement('Packages')
+	$xmlWriter.WriteEndElement()
+	$xmlWriter.Flush()
+	$xmlWriter.Close()
+}
 $docPackagesConfig = (Get-Content $packagesConfig) -as [Xml]
 
 $csProj = $env:PROJECT_CSPROJ_PATH
