@@ -10,7 +10,7 @@ if(!(Test-Path $packagesConfig))
 	$xmlWriter.Indentation = 1
 	$XmlWriter.IndentChar = "`t"
 	$xmlWriter.WriteStartDocument()
-	$xmlWriter.WriteStartElement('Packages')
+	$xmlWriter.WriteStartElement('packages')
 	$xmlWriter.WriteEndElement()
 	$xmlWriter.Flush()
 	$xmlWriter.Close()
