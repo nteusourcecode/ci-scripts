@@ -82,7 +82,8 @@ $NugetPackagesToAdd | ForEach-Object {
 	#Add package reference
  	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=" + $currentPackageVersion +", Culture=neutral, processorArchitecture=MSIL");
+	#$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=" + $currentPackageVersion +", Culture=neutral, processorArchitecture=MSIL");
+	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
 	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsHintPath.InnerXml = $env:PACKAGES_PATH + $currentPackageToAdd + "." + $currentPackageVersion +"\lib\net46\" + $currentPackageToAdd + ".dll"
 	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
