@@ -4,7 +4,8 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 	if($xmlDoc.NTEUPackages.HasChildNodes)
 	{
 	    $xmlDoc.NTEUPackages.Package |  ForEach-Object {
-      		$framework = Get-ChildItem $env:PACKAGES_PATH + $_.id + "." + $_.version +"\lib" | Sort-Object Name -descending | Select-Object Name -First 1
+	       Write-Host ("PackagesPath: " + "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib")
+      		$framework = Get-ChildItem "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib" | Sort-Object Name -descending | Select-Object Name -First 1
       		
 		$xmlDoc = [xml](Get-Content $env:PROJECT_PACKAGES_PATH);
 		$nodeToUpdate = $xmlDoc.packages.SelectSingleNode("package[@id='$($framework.Name)']")
