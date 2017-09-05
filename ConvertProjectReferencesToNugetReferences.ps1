@@ -103,7 +103,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	#$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=" + $currentPackageVersion +", Culture=neutral, processorArchitecture=MSIL");
 	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
 	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsHintPath.InnerXml = $env:PACKAGES_PATH + $currentPackageToAdd + "." + $currentPackageVersion +"\lib\net45\" + $currentPackageToAdd + ".dll"
+	$newcsHintPath.InnerXml = $env:PACKAGES_PATH + $currentPackageToAdd + "." + $currentPackageVersion +"\lib\" + $currentPackageVersion + "\" + $currentPackageToAdd + ".dll"
 	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsRefPrivate.InnerXml = "True"
 
