@@ -22,11 +22,11 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		Write-Output ('docCsproj.Project.ItemGroup.Reference.HintPath: for' + "$($_.id).$($_.version):")
 		Write-Output $docCsproj.Project.ItemGroup.Reference.HintPath		
 		$projectToSetHitPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq '$($_.id).$($_.version)' }		
-		Write-Host $projectToSetHitPath
+		Write-Output $projectToSetHitPath
 		$projectToSetHitPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
 		$docCsproj.Save($csProj)
 		
-      		Write-Host "Update package $($_.id) target framework to $($framework.Name)"
+      		Write-Output "Update package $($_.id) target framework to $($framework.Name)"
 	    }
 	}
 }
