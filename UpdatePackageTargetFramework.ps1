@@ -30,10 +30,10 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		#Write-Output 'Reference:'
 		#Write-Output $docCsproj.Project.ItemGroup.Reference
 		#Write-Output ("docCsproj.Project.ItemGroup.Reference.HintPath: for" + "$($_.id).$($_.version)":)
-		#Write-Output $docCsproj.Project.ItemGroup.Reference.HintPath		
-		$projectToSetHitPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq "$($_.id).$($_.version)" }		
-		#Write-Output $projectToSetHitPath
-		$projectToSetHitPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
+		Write-Output $docCsproj.Project.ItemGroup.Reference.HintPath		
+		$projectToSetHintPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq "$($_.id).$($_.version)" }		
+		Write-Output $projectToSetHintPath
+		$projectToSetHintPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
 		$docCsproj.Save($csProj)
 		
       		Write-Output "Update package $($_.id) target framework to $($framework.Name)"
