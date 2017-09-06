@@ -14,7 +14,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		
 		$csProj = $env:PROJECT_CSPROJ_PATH
 		$docCsproj = (Get-Content $csProj) -as [Xml]
-		Get-Content $csProj
+		#Get-Content $csProj
 		#Write-Host ("version search: " + "$($_.id).$($_.version)")
 		$HintToken = "$($_.id).$($_.version)"
 		#Write-Host ("Hint Token: " + $HintToken)
