@@ -24,7 +24,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		#Write-Output $projectToSetHintPath.FirstChild.InnerText
 		#Write-Host $projectToSetHintPath
 		#Write-Host $docCsproj.Project.ItemGroup.Reference
-		$projectToSetHintPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
+		$projectToSetHintPath.HintPath = "..\$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
 		$docCsproj.Save($csProj)
 		Get-Content $csProj
       		Write-Host "Update package $($_.id) target framework to $($framework.Name)"
