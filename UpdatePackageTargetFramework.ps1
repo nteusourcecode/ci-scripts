@@ -11,6 +11,13 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		$nodeToUpdate = $xmlDocProjectConfig.packages.SelectSingleNode("package[@id='$($_.id)']")
       		$nodeToUpdate.SetAttribute("targetFramework", $framework.Name)
       		$xmlDocProjectConfig.Save($env:PROJECT_PACKAGES_PATH)
+		
+		$csProj = $env:PROJECT_CSPROJ_PATH
+		$docCsproj = (Get-Content $csProj) -as [Xml]
+		$projectToSetHitPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq "$($_.id).$($_.version)" }
+		$projectToSetHitPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
+		$docCsproj.Save($csProj)
+		
       		Write-Host "Update package $($_.id) target framework to $($framework.Name)"
 	    }
 	}
