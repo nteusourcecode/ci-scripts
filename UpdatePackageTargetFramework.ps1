@@ -15,16 +15,17 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		$csProj = $env:PROJECT_CSPROJ_PATH
 		$docCsproj = (Get-Content $csProj) -as [Xml]
 		Get-Content $csProj
-		Write-Host ("version search: " + "$($_.id).$($_.version)")
+		#Write-Host ("version search: " + "$($_.id).$($_.version)")
 		$HintToken = "$($_.id).$($_.version)"
-		Write-Host ("Hint Token: " + $HintToken)
+		#Write-Host ("Hint Token: " + $HintToken)
 		#$projectToSetHintPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq "$($_.id).$($_.version)" }
 		$projectToSetHintPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq $HintToken }
-		Write-Host ("Hint Path:" + $projectToSetHintPath.HintPath)
-		Write-Output $projectToSetHintPath.FirstChild.InnerText
-		Write-Host $projectToSetHintPath
-		Write-Host $docCsproj.Project.ItemGroup.Reference
+		#Write-Host ("Hint Path:" + $projectToSetHintPath.HintPath)
+		#Write-Output $projectToSetHintPath.FirstChild.InnerText
+		#Write-Host $projectToSetHintPath
+		#Write-Host $docCsproj.Project.ItemGroup.Reference
 		$projectToSetHintPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
+		$docCsproj.Save($csProj)
 		
       		Write-Host "Update package $($_.id) target framework to $($framework.Name)"
 	    }
