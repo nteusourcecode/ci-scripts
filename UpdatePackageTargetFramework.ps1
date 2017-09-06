@@ -14,6 +14,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		
 		$csProj = $env:PROJECT_CSPROJ_PATH
 		$docCsproj = (Get-Content $csProj) -as [Xml]
+		Get-Content $csProj
 		Write-Output ("version search:" + "$($_.id).$($_.version)")
 		
 		$projectToSetHintPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq "$($_.id).$($_.version)" }
