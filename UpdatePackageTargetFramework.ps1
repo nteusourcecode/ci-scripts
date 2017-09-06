@@ -19,6 +19,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		$projectToSetHintPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq "$($_.id).$($_.version)" }
 		Write-Output ("Hint Path:" + $projectToSetHintPath.HintPath)
 		Write-Output $projectToSetHintPath
+		Write-Output $docCsproj.Project.ItemGroup.Reference
 		$projectToSetHintPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
 		
       		Write-Output "Update package $($_.id) target framework to $($framework.Name)"
