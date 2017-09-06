@@ -25,14 +25,14 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		$csProj = $env:PROJECT_CSPROJ_PATH
 		$docCsproj = (Get-Content $csProj) -as [Xml]
 		Get-Content $csProj
-		Write-Output 'ItemGroup:'
-		Write-Output $docCsproj.Project.ItemGroup
-		Write-Output 'Reference:'
-		Write-Output $docCsproj.Project.ItemGroup.Reference
-		Write-Output ('docCsproj.Project.ItemGroup.Reference.HintPath: for' + $($_.id).$($_.version):)
-		Write-Output $docCsproj.Project.ItemGroup.Reference.HintPath		
-		$projectToSetHitPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq $($_.id).$($_.version) }		
-		Write-Output $projectToSetHitPath
+		#Write-Output 'ItemGroup:'
+		#Write-Output $docCsproj.Project.ItemGroup
+		#Write-Output 'Reference:'
+		#Write-Output $docCsproj.Project.ItemGroup.Reference
+		#Write-Output ("docCsproj.Project.ItemGroup.Reference.HintPath: for" + "$($_.id).$($_.version)":)
+		#Write-Output $docCsproj.Project.ItemGroup.Reference.HintPath		
+		$projectToSetHitPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq "$($_.id).$($_.version)" }		
+		#Write-Output $projectToSetHitPath
 		$projectToSetHitPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
 		$docCsproj.Save($csProj)
 		
