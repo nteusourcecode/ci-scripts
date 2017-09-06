@@ -5,6 +5,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 	{
 	    $xmlDoc.NTEUPackages.Package |  ForEach-Object {
 	        Write-Host ("PackagesPath: " + "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib")
+		ls
       		$framework = Get-ChildItem "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib" | Sort-Object Name -descending | Select-Object Name -First 1 
       		
 		$xmlDocProjectConfig = [xml](Get-Content $env:PROJECT_PACKAGES_PATH);
