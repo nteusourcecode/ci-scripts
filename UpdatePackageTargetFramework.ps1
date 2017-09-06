@@ -19,6 +19,7 @@ if(Test-Path $env:NTEU_PACKAGES_PATH)
 		Write-Host 'docCsproj.Project.ItemGroup.Reference.HintPath: for' + "$($_.id).$($_.version):"
 		Write-Host $docCsproj.Project.ItemGroup.Reference.HintPath		
 		$projectToSetHitPath = $docCsproj.Project.ItemGroup.Reference | Where-Object {$_.HintPath -eq "$($_.id).$($_.version)" }		
+		Write-Host $projectToSetHitPath
 		$projectToSetHitPath.HintPath = "$($env:PACKAGES_PATH)$($_.id).$($_.version)\lib\$($framework.Name)\$($_.id).dll"
 		$docCsproj.Save($csProj)
 		
