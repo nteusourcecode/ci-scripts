@@ -9,10 +9,9 @@ if(Test-Path $packagePath)
 		if($packageDoc.packages.HasChildNodes)
 		{			
 			$nugetSpecDoc = ( Select-Xml -Path $nugetSpecPath -XPath / ).Node
-			Write-Output $nugetSpecDoc
 			$dependencies = $nugetSpecDoc.CreateElement("dependencies", $nugetSpecDoc.DocumentElement.NamespaceURI)
 			$packageDoc.packages.package |  ForEach-Object {
-				Write-Host $_.id
+				Write-Host "Added Nuget Dependency: $($_.id)" 
 				$dependencyToAdd = $nugetSpecDoc.CreateElement("dependency", $nugetSpecDoc.DocumentElement.NamespaceURI)
 				$dependencyToAdd.SetAttribute("id",$_.id)
 				$dependencyToAdd.SetAttribute("version",$_.version)
