@@ -7,7 +7,7 @@ $packageNames = Get-ChildItem $packagesPath | Where-Object Name -NotMatch '^Micr
 
 foreach($i in $packageNames[0])
 {
-	Write-Output $i
+	#Write-Output $i
 	$currentLibPath = "$($packagesPath)\$($i.Name)\lib"
 	$framework = ""
 
@@ -30,12 +30,12 @@ foreach($i in $packageNames[0])
 	$packageVersion = $i.Name.Substring($indexStartOfVersion + 1)
 	$packageName = $i.Name.Substring(0, $indexStartOfVersion)
 
-	Write-Output $framework
+	#Write-Output $framework
 
 	$addPackage = $xmlDoc.packages.SelectSingleNode("package[@id='$($packageName)']").Count -eq 0
 	if($addPackage)
 	{
-		Write-Output "adding"
+		Write-Host "adding package $($packageName) to packages.config"
 		$newPackageNode = $xmlDoc.CreateElement("package", $xmlDoc.DocumentElement.NamespaceURI)
 		$newPackageNode.SetAttribute("id", $packageName)
 		$newPackageNode.SetAttribute("version", $packageVersion)
