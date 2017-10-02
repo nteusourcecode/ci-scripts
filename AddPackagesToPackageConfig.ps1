@@ -52,10 +52,10 @@ foreach($i in $packageNames)
 		$newcsReference.SetAttribute("Include", $packageName + ", Version=$($packageVersion), Culture=neutral, processorArchitecture=MSIL");
 		$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
 		#$newcsHintPath.InnerXml = "$($packageName).$($packageVersion)"
-		$newcsHintPath.InnerXml = $i.Name
+		$newcsHintPath.InnerXml = "$($env:PACKAGES_PATH)$($packageName).$($packageVersion)\lib\$($framework)\$($packageName).dll"
 		$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
 		$newcsRefPrivate.InnerXml = "True"
-
+		
 		$newcsReference.AppendChild($newcsHintPath)
 		$newcsReference.AppendChild($newcsRefPrivate)
 		$newcsItemGroup.AppendChild($newcsReference)
