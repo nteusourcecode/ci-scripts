@@ -112,7 +112,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$newcsItemGroup.AppendChild($newcsReference)
 	$docCsproj.Project.AppendChild($newcsItemGroup)	
 	$docCsproj.Save($csproj)	
-	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
+	#nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
 	#Get-Content $csproj
 	
 	#BEGIN update .sln
