@@ -5,7 +5,7 @@ $xmlDoc = [xml](Get-Content $packagesConfig);
 $packageNames = Get-ChildItem $packagesPath | Where-Object Name -NotMatch '^Microsoft.' | Select-Object Name
 #Write-Output $packageNames
 
-foreach($i in $packageNames[0])
+foreach($i in $packageNames)
 {
 	#Write-Output $i
 	$currentLibPath = "$($packagesPath)\$($i.Name)\lib"
@@ -25,7 +25,7 @@ foreach($i in $packageNames[0])
 		$framework = "net45"
 	}
 
-	Write-Output $i.Name.IndexOf(".")
+	#Write-Output $i.Name.IndexOf(".")
 	$indexStartOfVersion = $i.Name.IndexOf(".")
 	$packageVersion = $i.Name.Substring($indexStartOfVersion + 1)
 	$packageName = $i.Name.Substring(0, $indexStartOfVersion)
