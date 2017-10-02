@@ -13,10 +13,10 @@ foreach($i in $packageNames)
 
 	if(Test-Path $currentLibPath)
 	{
-		$framework = Get-ChildItem $currentLibPath | Where-Object Name -Match '^net[0-9][0-9]' | Sort-Object Name -descending | Select-Object Name -First 1
+		$frameworkNode = Get-ChildItem $currentLibPath | Where-Object Name -Match '^net[0-9][0-9]' | Sort-Object Name -descending | Select-Object Name -First 1
 		if($framework.Length -ge 1 -and !$framework.Name.StartsWith("net"))
 		{
-			$framework.Name = ""
+			$framework.Name = $frameworkNode.Name
 		}
 	}
 	
