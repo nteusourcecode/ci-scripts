@@ -20,7 +20,7 @@ foreach($i in $packageNames)
 		}
 	}
 	
-	if([string]::IsNullOrEmpty($framework.Name))
+	if([string]::IsNullOrEmpty($framework.Name) -or [string]::IsNullOrEmpty($framework))
 	{
 		$framework = "net45"
 	}
