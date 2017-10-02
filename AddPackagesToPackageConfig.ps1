@@ -45,21 +45,21 @@ foreach($i in $packageNames)
 		$newPackageNode.SetAttribute("targetFramework", $framework)
 		$xmlDoc.packages.AppendChild($newPackageNode)
 		$xmlDoc.Save($packagesConfig)
-	}
-	
-	#Add package reference
- 	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsReference.SetAttribute("Include", $packageName + ", Version=$($packageVersion), Culture=neutral, processorArchitecture=MSIL");
-	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
-	#$newcsHintPath.InnerXml = "$($packageName).$($packageVersion)"
-	$newcsHintPath.InnerXml = $i.Name
-	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsRefPrivate.InnerXml = "True"
+		
+		#Add package reference
+		$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
+		$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
+		$newcsReference.SetAttribute("Include", $packageName + ", Version=$($packageVersion), Culture=neutral, processorArchitecture=MSIL");
+		$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
+		#$newcsHintPath.InnerXml = "$($packageName).$($packageVersion)"
+		$newcsHintPath.InnerXml = $i.Name
+		$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
+		$newcsRefPrivate.InnerXml = "True"
 
-	$newcsReference.AppendChild($newcsHintPath)
-	$newcsReference.AppendChild($newcsRefPrivate)
-	$newcsItemGroup.AppendChild($newcsReference)
-	$docCsproj.Project.AppendChild($newcsItemGroup)	
-	$docCsproj.Save($csproj)	
+		$newcsReference.AppendChild($newcsHintPath)
+		$newcsReference.AppendChild($newcsRefPrivate)
+		$newcsItemGroup.AppendChild($newcsReference)
+		$docCsproj.Project.AppendChild($newcsItemGroup)	
+		$docCsproj.Save($csproj)	
+	}	
 }
