@@ -22,7 +22,7 @@ foreach($i in $packageNames)
 	
 	if([string]::IsNullOrEmpty($framework.Name))
 	{
-		$framework.Name = "net45"
+		$framework = "net45"
 	}
 
 	#Write-Output $i.Name.IndexOf(".")
@@ -39,7 +39,7 @@ foreach($i in $packageNames)
 		$newPackageNode = $xmlDoc.CreateElement("package", $xmlDoc.DocumentElement.NamespaceURI)
 		$newPackageNode.SetAttribute("id", $packageName)
 		$newPackageNode.SetAttribute("version", $packageVersion)
-		$newPackageNode.SetAttribute("targetFramework", $framework.Name)
+		$newPackageNode.SetAttribute("targetFramework", $framework)
 		$xmlDoc.packages.AppendChild($newPackageNode)
 		$xmlDoc.Save($packagesConfig)
 	}
