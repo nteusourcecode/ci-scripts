@@ -50,7 +50,7 @@ foreach($i in $packageNames)
 	#Add package reference
  	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
-	$newcsReference.SetAttribute("Include", $packageName + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
+	$newcsReference.SetAttribute("Include", $packageName + ", Version=$($packageVersion), Culture=neutral, processorArchitecture=MSIL");
 	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
 	#$newcsHintPath.InnerXml = "$($packageName).$($packageVersion)"
 	$newcsHintPath.InnerXml = $i.Name
