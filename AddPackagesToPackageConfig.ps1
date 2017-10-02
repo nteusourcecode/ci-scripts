@@ -2,6 +2,9 @@ $packagesPath = $env:PACKAGES_PATH
 $packagesConfig = $env:PROJECT_PACKAGES_PATH
 $xmlDoc = [xml](Get-Content $packagesConfig);
 
+$csProj = $env:PROJECT_CSPROJ_PATH
+$docCsproj = (Get-Content $csProj) -as [Xml]
+
 $packageNames = Get-ChildItem $packagesPath | Where-Object Name -NotMatch '^Microsoft.' | Select-Object Name
 #Write-Output $packageNames
 
@@ -43,4 +46,20 @@ foreach($i in $packageNames)
 		$xmlDoc.packages.AppendChild($newPackageNode)
 		$xmlDoc.Save($packagesConfig)
 	}
+	
+	#Add package reference
+ 	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
+	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
+	$newcsReference.SetAttribute("Include", $packageName + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
+	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
+	#$newcsHintPath.InnerXml = "$($packageName).$($packageVersion)"
+	$newcsHintPath.InnerXml = $i.Name
+	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
+	$newcsRefPrivate.InnerXml = "True"
+
+	$newcsReference.AppendChild($newcsHintPath)
+	$newcsReference.AppendChild($newcsRefPrivate)
+	$newcsItemGroup.AppendChild($newcsReference)
+	$docCsproj.Project.AppendChild($newcsItemGroup)	
+	$docCsproj.Save($csproj)	
 }
