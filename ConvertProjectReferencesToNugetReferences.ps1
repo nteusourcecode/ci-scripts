@@ -67,8 +67,11 @@ $NugetPackagesToAdd | ForEach-Object {
 	#$currentPackageInAppveyorRepo = Find-Package $currentPackageToAdd
 	#Write-Host ("Adding Package " + $currentPackageInAppveyorRepo.Name + " Version: " + $currentPackageInAppveyorRepo.Version)
 	#nuget sources
-        $packageIdVer = (nuget list $currentPackageToAdd -source AppVeyorAccountFeed) -split " "
-	$currentPackageVersion = $packageIdVer[$packageIdVer.Count - 1]
+        #$packageIdVer = (nuget list $currentPackageToAdd -source AppVeyorAccountFeed) -split " "
+	#$currentPackageVersion = $packageIdVer[$packageIdVer.Count - 1]
+	$packageIdVer = nuget list CMExternalAppConnector 
+	$currentPackageVersion = $packageIdVer -split '\r?\n' -clike "$($currentPackageToAdd) 1.0.*" -split " " | Select-Object -Last 1
+	
 	Write-Host ("packageIdVer: " +  $packageIdVer)
 	Write-Host ("Adding Package " + $currentPackageToAdd + " Version: " + $currentPackageVersion)
 	
