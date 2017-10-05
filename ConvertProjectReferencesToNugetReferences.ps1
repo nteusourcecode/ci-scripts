@@ -105,9 +105,11 @@ $NugetPackagesToAdd | ForEach-Object {
 	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
 	#$directoryToSearch = Resolve-Path $env:PACKAGES_PATH
 	#(Get-Childitem -Path $directoryToSearch -Recurse)
-	#Write-Host ("directoryToSearch: $($directoryToSearch)")
+	
 	#ls $env:PACKAGES_PATH
-	$assemblyPathFullName = (Get-Childitem -Path $directoryToSearch -Recurse -Filter "$($currentPackageToAdd).dll" | Select-Object FullName  -Last 1)
+	$tempAssemblyNameToFilter = "$($currentPackageToAdd).dll"
+	Write-Host ("Searching $($directoryToSearch) for $($tempAssemblyNameToFilter)")
+	$assemblyPathFullName = (Get-Childitem -Path $directoryToSearch -Recurse -Filter $tempAssemblyNameToFilter | Select-Object FullName  -Last 1)
 	Write-Host ("Assembly path for package $($currentPackageToAdd): $($assemblyPathFullName.FullName)")
 	$Assembly = [Reflection.Assembly]::Loadfile($assemblyPathFullName.FullName)
 
