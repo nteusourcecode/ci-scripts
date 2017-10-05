@@ -1,3 +1,4 @@
+cd  $env:PROJECT_PATH
 #Files to modify
 $packagesConfig = $env:PROJECT_PACKAGES_PATH
 if(!(Test-Path $packagesConfig))
