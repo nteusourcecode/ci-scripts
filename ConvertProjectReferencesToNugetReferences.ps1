@@ -103,7 +103,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	
 	#Add package reference
 	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
-	#$directoryToSearch = Resolve-Path $env:PACKAGES_PATH
+	$directoryToSearch = Resolve-Path $env:PACKAGES_PATH
 	#(Get-Childitem -Path $directoryToSearch -Recurse)
 	
 	#ls $env:PACKAGES_PATH
