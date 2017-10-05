@@ -102,7 +102,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	
 	#Add package reference
 	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
-	$directoryToSearch = $env:PACKAGES_PATH
+	$directoryToSearch = $env:APPVEYOR_BUILD_FOLDER
 	Write-Host Get-Childitem –Path $directoryToSearch
 	#$assemblyPathFullName = ((Get-Childitem –Path $directoryToSearch -Recurse -Filter '$($currentPackageToAdd).dll') | Select-Object FullName -Last 1)
 	#Write-Host ("assemblyPathFullName: " +  $assemblyPathFullName.FullName)
