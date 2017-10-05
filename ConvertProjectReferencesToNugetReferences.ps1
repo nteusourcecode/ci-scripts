@@ -101,9 +101,10 @@ $NugetPackagesToAdd | ForEach-Object {
 	$docCsproj.Save($csproj)
 	
 	#Add package reference
-	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
-	$directoryToSearch = $env:PACKAGES_PATH
-	Write-Host (Get-Childitem –Path 'C:\projects\app-trainingconference-fv073\packages')
+	#nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
+	#$directoryToSearch = $env:PACKAGES_PATH
+	#Write-Host (Get-Childitem –Path 'C:\projects\app-trainingconference-fv073\packages')
+	ls $env:PACKAGES_PATH
 	
  	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
