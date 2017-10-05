@@ -101,6 +101,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$docCsproj.Save($csproj)
 	
 	#Add package reference	
+	ls C:\projects\app-trainingconference-fv073\packages
  	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
 	#$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=" + $currentPackageVersion +", Culture=neutral, processorArchitecture=MSIL");
