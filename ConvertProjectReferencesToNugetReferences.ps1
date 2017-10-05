@@ -105,7 +105,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
 	ls 'C:\projects\app-trainingconference-fv073\packages'
 	$directoryToSearch = 'C:\projects\app-trainingconference-fv073\packages'
-	$assemblyPathFullName = (Get-Childitem –Path $directoryToSearch -Recurse -Filter 'CMExternalAppConnectorGlobal.dll' | Select-Object FullName  -Last 1)
+	$assemblyPathFullName = (Get-Childitem -Path $directoryToSearch -Recurse -Filter 'CMExternalAppConnectorGlobal.dll' | Select-Object FullName  -Last 1)
 	$Assembly = [Reflection.Assembly]::Loadfile($assemblyPathFullName.FullName)
 
 	$AssemblyName = $Assembly.GetName()
