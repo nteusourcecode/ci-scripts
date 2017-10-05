@@ -139,3 +139,5 @@ $NugetPackagesToAdd | ForEach-Object {
 }
 
  $xmlDoc.Save($XML_Path)
+ 
+ cd $env:APPVEYOR_BUILD_FOLDER
