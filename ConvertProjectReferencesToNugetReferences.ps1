@@ -103,12 +103,12 @@ $NugetPackagesToAdd | ForEach-Object {
 	
 	#Add package reference
 	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
-	$directoryToSearch = Resolve-Path $env:PACKAGES_PATH
+	#$directoryToSearch = Resolve-Path $env:PACKAGES_PATH
 	#(Get-Childitem -Path $directoryToSearch -Recurse)
-	Write-Host ("directoryToSearch: $($directoryToSearch)")
+	#Write-Host ("directoryToSearch: $($directoryToSearch)")
 	#ls $env:PACKAGES_PATH
-	$assemblyPathFullName = (Get-Childitem -Path $directoryToSearch -Recurse -Filter 'CMExternalAppConnectorGlobal.dll' | Select-Object FullName  -Last 1)
-	Write-Host ("Assembly path for package $($currentPackageToAdd): $($assemblyPathFullName)")
+	$assemblyPathFullName = (Get-Childitem -Path $directoryToSearch -Recurse -Filter "$($currentPackageToAdd).dll" | Select-Object FullName  -Last 1)
+	Write-Host ("Assembly path for package $($currentPackageToAdd): $($assemblyPathFullName.FullName)")
 	$Assembly = [Reflection.Assembly]::Loadfile($assemblyPathFullName.FullName)
 
 	$AssemblyName = $Assembly.GetName()
