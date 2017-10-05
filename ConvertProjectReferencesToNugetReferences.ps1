@@ -102,7 +102,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	$docCsproj.Save($csproj)
 	
 	#Add package reference
-	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
+	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH -source AppVeyorAccountFeed
 	$directoryToSearch = Resolve-Path $env:PACKAGES_PATH
 	#(Get-Childitem -Path $directoryToSearch -Recurse)
 	
