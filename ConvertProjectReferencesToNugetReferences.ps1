@@ -101,10 +101,17 @@ $NugetPackagesToAdd | ForEach-Object {
 	$docCsproj.Save($csproj)
 	
 	#Add package reference
+	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
+	$directoryToSearch = $env:PACKAGES_PATH
+	$assemblyPathFullName = Get-Childitem –Path $directoryToSearch -Recurse -Filter '$($currentPackageToAdd).dll' | Select-Object FullName  -Last 1
+	$Assembly = [Reflection.Assembly]::Loadfile($assemblyPathFullName.FullName)
+
+	$AssemblyName = $Assembly.GetName()
+	$AssemblyVersion = $AssemblyName.version
  	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
 	#$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=" + $currentPackageVersion +", Culture=neutral, processorArchitecture=MSIL");
-	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
+	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=$($AssemblyVersion), Culture=neutral, processorArchitecture=MSIL");
 	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsHintPath.InnerXml = "$($currentPackageToAdd).$($currentPackageVersion)"
 	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
