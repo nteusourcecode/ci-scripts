@@ -103,7 +103,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	#Add package reference
 	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
 	$directoryToSearch = $env:PACKAGES_PATH
-	#Write-Host Get-Childitem –Path $directoryToSearch
+	Write-Host Get-Childitem –Path 'C:\projects\app-trainingconference-fv073'
 	#$assemblyPathFullName = ((Get-Childitem –Path $directoryToSearch -Recurse -Filter '$($currentPackageToAdd).dll') | Select-Object FullName -Last 1)
 	#Write-Host ("assemblyPathFullName: " +  $assemblyPathFullName.FullName)
 	#$Assembly = [Reflection.Assembly]::Loadfile($assemblyPathFullName.FullName)
