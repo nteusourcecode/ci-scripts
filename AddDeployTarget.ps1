@@ -3,7 +3,7 @@ $deployps1Path = $env:PROJECT_DEPLOY_PATH
 
 if(!(Test-Path $deployps1Path))
 {
-	Copy-Item C:\ciscripts\deploy.ps1 $env:APPVEYOR_BUILD_FOLDER
+	Copy-Item C:\ciscripts\deploy.ps1 $env:PROJECT_PATH
 }
 
 if(Test-Path $deployps1Path)
@@ -20,7 +20,7 @@ if(Test-Path $deployps1Path)
 		$target.SetAttribute("Name", "BeforeBuild")
 		$itemGroup = $xml.CreateElement("ItemGroup", $xml.DocumentElement.NamespaceURI)
 		$content = $xml.CreateElement("Content", $xml.DocumentElement.NamespaceURI)
-		$content.SetAttribute("Include", '..\deploy.ps1')
+		$content.SetAttribute("Include", 'deploy.ps1')
 		$itemGroup.AppendChild($content)
 		$target.AppendChild($itemGroup)
 		$xml.Project.AppendChild($target)
