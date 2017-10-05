@@ -3,7 +3,7 @@ $deployps1Path = $env:PROJECT_DEPLOY_PATH
 
 if(!(Test-Path $deployps1Path))
 {
-	Copy-Item C:\ciscripts\deploy.ps1 env:APPVEYOR_BUILD_FOLDER
+	Copy-Item C:\ciscripts\deploy.ps1 $env:APPVEYOR_BUILD_FOLDER
 }
 
 if(Test-Path $deployps1Path)
