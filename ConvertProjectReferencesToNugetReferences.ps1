@@ -103,19 +103,16 @@ $NugetPackagesToAdd | ForEach-Object {
 	
 	#Add package reference
 	nuget install $currentPackageToAdd -OutputDirectory $env:PACKAGES_PATH
-	ls 'C:\projects\app-trainingconference-fv073\packages'
-	$directoryToSearch = 'C:\projects\app-trainingconference-fv073\packages'
-	$assemblyPathFullName = (Get-Childitem -Path $directoryToSearch -Recurse -Filter 'CMExternalAppConnectorGlobal.dll' | Select-Object FullName  -Last 1)
+	$directoryToSearch = $env:PACKAGES_PATH
+	$assemblyPathFullName = (Get-Childitem -Path $directoryToSearch -Recurse -Filter '$($currentPackageVersion).dll' | Select-Object FullName  -Last 1)
 	$Assembly = [Reflection.Assembly]::Loadfile($assemblyPathFullName.FullName)
 
 	$AssemblyName = $Assembly.GetName()
 	$Assemblyversion = $AssemblyName.version
-	Write-Host $Assemblyversion
  	$newcsItemGroup = $docCsproj.CreateElement("ItemGroup", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsReference = $docCsproj.CreateElement("Reference", $docCsproj.DocumentElement.NamespaceURI)
 	#$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=" + $currentPackageVersion +", Culture=neutral, processorArchitecture=MSIL");
-	#$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=$($AssemblyVersion), Culture=neutral, processorArchitecture=MSIL");
-	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL");
+	$newcsReference.SetAttribute("Include", $currentPackageToAdd + ", Version=$($AssemblyVersion), Culture=neutral, processorArchitecture=MSIL");
 	$newcsHintPath = $docCsproj.CreateElement("HintPath", $docCsproj.DocumentElement.NamespaceURI)
 	$newcsHintPath.InnerXml = "$($currentPackageToAdd).$($currentPackageVersion)"
 	$newcsRefPrivate = $docCsproj.CreateElement("Private", $docCsproj.DocumentElement.NamespaceURI)
