@@ -109,7 +109,7 @@ $NugetPackagesToAdd | ForEach-Object {
 	#ls $env:PACKAGES_PATH
 	$tempAssemblyNameToFilter = "$($currentPackageToAdd).dll"
 	Write-Host ("Searching $($directoryToSearch) for $($tempAssemblyNameToFilter)")
-	Get-Childitem -Path $directoryToSearch -Recurse
+	#Get-Childitem -Path $directoryToSearch -Recurse
 	$assemblyPathFullName = (Get-Childitem -Path $directoryToSearch -Recurse -Filter $tempAssemblyNameToFilter | Select-Object FullName  -Last 1)
 	Write-Host ("Assembly path for package $($currentPackageToAdd): $($assemblyPathFullName.FullName)")
 	$Assembly = [Reflection.Assembly]::Loadfile($assemblyPathFullName.FullName)
