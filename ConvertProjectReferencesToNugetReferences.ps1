@@ -32,7 +32,7 @@ $nugetprojToAdd = $docCsproj.Project.ItemGroup.ProjectReference | ForEach-Object
 	{	
 		$searchResult = nuget list $_.Name -Source AppVeyorAccountFeed
 		if([string]::IsNullOrWhiteSpace($searchResult) -or $searchResult -eq "No packages found."){
-			Write-Output ("Not found on :" + $_.Name)
+			Write-Host ("Not found on :" + $_.Name)
 		}
 		else {
 			$NugetPackagesToAdd.Add($_.Name)
