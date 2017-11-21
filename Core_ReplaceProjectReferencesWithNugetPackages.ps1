@@ -8,14 +8,15 @@ $ReferencesFound.AddRange((dotnet list $csProjPath reference | select-object -sk
 $AppVeyorPackageName.AddRange((nuget list -source AppVeyorAccountFeed | select-object -skip 1 | ForEach-Object -Process {([String] $_).Split(" ")[0]}))
 
 $ReferencesFound | ForEach-Object {
-	if($AppVeyorPackageName -icontains [System.IO.Path]::GetFileNameWithoutExtension($_))
+	$CurrentReference = $_
+	if($AppVeyorPackageName -icontains [System.IO.Path]::GetFileNameWithoutExtension($CurrentReference))
 	{
-		dotnet remove $csProjPath reference $_
-		dotnet add $csProjPath package ([System.IO.Path]::GetFileNameWithoutExtension($_)) -s AppVeyorAccountFeed -n
-		Write-Output "Replaced .csproj reference with appveyor nuget package: $($([System.IO.Path]::GetFileNameWithoutExtension($_)))"		
+		dotnet remove $csProjPath reference $CurrentReference
+		dotnet add $csProjPath package ([System.IO.Path]::GetFileNameWithoutExtension($CurrentReference)) -s AppVeyorAccountFeed -n
+		Write-Output "Replaced .csproj reference with appveyor nuget package: $($([System.IO.Path]::GetFileNameWithoutExtension($CurrentReference)))"		
 	}
 	else
 	{
-		Write-Output "Appveyor nuget package not found expecting .csproj reference: $($_)"
+		Write-Output "Appveyor nuget package not found expecting .csproj reference: $($CurrentReference)"
 	}
 }
