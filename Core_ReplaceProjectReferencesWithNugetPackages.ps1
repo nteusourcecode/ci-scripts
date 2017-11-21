@@ -11,7 +11,7 @@ $ReferencesFound | ForEach-Object {
 	if($AppVeyorPackageName -icontains [System.IO.Path]::GetFileNameWithoutExtension($_))
 	{
 		dotnet remove $csProjPath reference $_
-		dotnet add $csProjPath package ([System.IO.Path]::GetFileNameWithoutExtension($_))
+		dotnet add $csProjPath package ([System.IO.Path]::GetFileNameWithoutExtension($_)) -s AppVeyorAccountFeed -n
 		Write-Output "Replaced .csproj reference with appveyor nuget package: $($([System.IO.Path]::GetFileNameWithoutExtension($_)))"		
 	}
 	else
