@@ -5,7 +5,7 @@ $csProjPath = $env:PROJECT_PATH
 
 $ReferencesFound.AddRange((dotnet list $csProjPath reference | select-object -skip 2))
 
-$AppVeyorPackageName.AddRange((nuget list -source appveyor | select-object -skip 1 | ForEach-Object -Process {([String] $_).Split(" ")[0]}))
+$AppVeyorPackageName.AddRange((nuget list -source AppVeyorAccountFeed | select-object -skip 1 | ForEach-Object -Process {([String] $_).Split(" ")[0]}))
 
 $ReferencesFound | ForEach-Object {
 	if($AppVeyorPackageName -icontains [System.IO.Path]::GetFileNameWithoutExtension($_))
