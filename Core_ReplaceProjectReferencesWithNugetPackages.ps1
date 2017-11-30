@@ -3,6 +3,8 @@ $csProjPath = $env:PROJECT_PATH
 [System.Collections.ArrayList]$ReferencesFound = New-Object System.Collections.ArrayList
 [System.Collections.ArrayList]$AppVeyorPackageName = New-Object System.Collections.ArrayList
 
+Write-Output (-not ([string]::IsNullOrEmpty(dotnet list $csProjPath reference))) 
+
 $ReferencesFound.AddRange((dotnet list $csProjPath reference | select-object -skip 2))
 
 $AppVeyorPackageName.AddRange((nuget list -source AppVeyorAccountFeed | select-object -skip 1 | ForEach-Object -Process {([String] $_).Split(" ")[0]}))
