@@ -5,7 +5,7 @@ $csProjPath = $env:PROJECT_PATH
 
 $objectinfo = (dotnet list $csProjPath reference | measure-object -Line)
 
-if(($objectinfo.Lines -eq 1))
+if(($objectinfo.Lines -gt 2))
 {
 	$ReferencesFound.AddRange((dotnet list $csProjPath reference | select-object -skip 2))
 
