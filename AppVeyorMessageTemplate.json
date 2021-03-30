@@ -1,0 +1,28 @@
+{
+        "title": "AppVeyor Build {{#passed}}passed{{/passed}}{{#failed}}failed{{/failed}}",
+        "summary": "Build {{projectName}} {{buildVersion}} {{status}}",
+        "themeColor": "{{#passed}}00FF00{{/passed}}{{#failed}}FF0000{{/failed}}",
+        "sections": [
+            {
+                "activityTitle": "{{commitAuthor}} on {{commitDate}} ( {{repositoryProvider}}/{{repositoryName}} )",
+                "activityText": "[Build {{projectName}} {{buildVersion}} {{status}}]({{buildUrl}})"
+            },
+            {
+                "title": "Details",
+                "facts": [
+                    {
+                        "name": "Commit",
+                        "value": "[{{commitId}} by {{commitAuthor}} on {{branch}} at {{commitDate}}]({{commitUrl}})"
+                    },
+                    {
+                        "name": "Message",
+                        "value": "{{commitMessage}}"
+                    },
+                    {
+                        "name": "Duration",
+                        "value": "{{duration}} ({{started}} - {{finished}})"
+                    }
+                ]
+            }
+        ]
+    }
