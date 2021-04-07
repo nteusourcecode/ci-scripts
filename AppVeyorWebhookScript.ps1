@@ -12,7 +12,7 @@ param(
     [String] $status,
     [String] $started,
     [String] $finished,
-    [bool] $passed,
+    [String] $passed,
     [bool] $failed
 )
 $buildStatus = if ($passed) {"passed"} elseif ($failed) {"failed"}
