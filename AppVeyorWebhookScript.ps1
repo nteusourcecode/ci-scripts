@@ -13,7 +13,7 @@ param(
     [String] $started,
     [String] $finished,
     [String] $passed,
-    [bool] $failed
+    [String] $failed
 )
 $buildStatus = if ($passed) {"passed"} elseif ($failed) {"failed"}
 $themeColor = if ($passed) {"00FF00"} elseif ($failed) {"FF0000"}
