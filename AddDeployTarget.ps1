@@ -30,3 +30,6 @@ if(Test-Path $deployps1Path)
 		Write-Host "deploy.ps1 was added as a target to the .csproj file"
 	}
 }
+
+# Create build info file
+New-Item -Path $env:PROJECT_PATH -Name "NteuAppBuild.txt" -ItemType "file" -Value "APPPOOL_NAME=$env:APPPOOL_NAME\nBUILD_DATE=$env:APPVEYOR_REPO_COMMIT_TIMESTAMP\nBUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
