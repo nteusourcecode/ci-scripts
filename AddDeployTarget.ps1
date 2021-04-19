@@ -32,4 +32,5 @@ if(Test-Path $deployps1Path)
 }
 
 # Create build info file
-New-Item -Path $env:PROJECT_PATH -Name "NteuAppBuild.txt" -ItemType "file" -Value "APPPOOL_NAME=$env:APPPOOL_NAME\nBUILD_DATE=$env:APPVEYOR_REPO_COMMIT_TIMESTAMP\nBUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
+New-Item -Path "$env:PROJECT_PATH/NteuAppBuild.txt" -ItemType File -Value "APPPOOL_NAME=$env:APPPOOL_NAME\nBUILD_DATE=$env:APPVEYOR_REPO_COMMIT_TIMESTAMP\nBUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
+Write-Host "Build info file created"
