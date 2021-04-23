@@ -39,8 +39,7 @@ if(Test-Path $deployps1Path)
 		$target.AppendChild($itemGroup)
 		$xml.Project.AppendChild($target)
 
-		$xmlContent = Get-Content $xml
-		Write-Host $xmlContent
+		Format-Xml -InputObject $xml
 
 		$xml.Save($csProjPath)
 
