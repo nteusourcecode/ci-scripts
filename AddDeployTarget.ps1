@@ -6,6 +6,18 @@ if(!(Test-Path $deployps1Path))
 	Copy-Item C:\ciscripts\deploy.ps1 $env:PROJECT_PATH
 }
 
+# Create build info file
+$buildInfoPath = "$($env:PROJECT_PATH)\NteuAppBuild.txt"
+$buildInfoFile = New-Item -path $buildInfoPath -type "file" -Force -Value "APPPOOL_NAME=$env:APPPOOL_NAME\nBUILD_DATE=$env:APPVEYOR_REPO_COMMIT_TIMESTAMP\nBUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
+if (Test-Path $buildInfoPath) {Write-Host "Path $($buildInfoPath) created"} else {Write-Host "Path not created"}
+Write-Host "Added to folder"
+$files = Get-ChildItem $env:PROJECT_PATH
+Write-Host $files
+Write-Host "Build info content:\n"
+$fileContent = Get-Content $buildInfoPath
+Write-Host $fileContent
+Write-Host "Build info file created"
+
 if(Test-Path $deployps1Path)
 {
 	# load it into an XML object:
@@ -21,24 +33,17 @@ if(Test-Path $deployps1Path)
 		$itemGroup = $xml.CreateElement("ItemGroup", $xml.DocumentElement.NamespaceURI)
 		$content = $xml.CreateElement("Content", $xml.DocumentElement.NamespaceURI)
 		$content.SetAttribute("Include", 'deploy.ps1')
-		$itemGroup.AppendChild($content)
+		# $buildInfo = $xml.CreateElement("Content", $xml.DocumentElement.NamespaceURI)
+		# $content.SetAttribute("Include", 'deploy.ps1')
+		# $itemGroup.AppendChild($buildInfo)
 		$target.AppendChild($itemGroup)
 		$xml.Project.AppendChild($target)
+
+		$xmlContent = Get-Content $xml
+		Write-Host $xmlContent
 
 		$xml.Save($csProjPath)
 
 		Write-Host "deploy.ps1 was added as a target to the .csproj file"
 	}
 }
-
-# Create build info file
-$buildInfoPath = "$($env:PROJECT_PATH)\NteuAppBuild.txt"
-New-Item -path $buildInfoPath -type "file" -Force -Value "APPPOOL_NAME=$env:APPPOOL_NAME\nBUILD_DATE=$env:APPVEYOR_REPO_COMMIT_TIMESTAMP\nBUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
-if (Test-Path $buildInfoPath) {Write-Host "Path $($buildInfoPath) created"} else {Write-Host "Path not created"}
-Write-Host "Added to folder"
-$files = Get-ChildItem $env:PROJECT_PATH
-Write-Host $files
-Write-Host "Build info content:\n"
-$fileContent = Get-Content $buildInfoPath
-Write-Host $fileContent
-Write-Host "Build info file created"
