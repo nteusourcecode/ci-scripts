@@ -34,16 +34,17 @@ if(Test-Path $deployps1Path)
 		$itemGroup = $xml.CreateElement("ItemGroup", $xml.DocumentElement.NamespaceURI)
 		$content = $xml.CreateElement("Content", $xml.DocumentElement.NamespaceURI)
 		$content.SetAttribute("Include", 'deploy.ps1')
-		# $buildInfo = $xml.CreateElement("Content", $xml.DocumentElement.NamespaceURI)
-		# $content.SetAttribute("Include", 'deploy.ps1')
-		# $itemGroup.AppendChild($buildInfo)
 		$target.AppendChild($itemGroup)
 		$xml.Project.AppendChild($target)
 
-		Format-Xml -InputObject $xml
-
-		$xml.Save($csProjPath)
-
 		Write-Host "deploy.ps1 was added as a target to the .csproj file"
 	}
+
+	# Add reference to build info file into csproj
+	$mainFolderItemGroup = $xml.Project.ItemGroup[3]
+	$buildInfo = $xml.mainFolderItemGroup("Content", $xml.DocumentElement.NamespaceURI)
+	$buildInfo.SetAttribute("Include", 'NteuAppBuild.txt')
+	$mainFolderItemGroup.AppendChild($buildInfo)
+
+	$xml.Save($csProjPath)
 }
