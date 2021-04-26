@@ -1,3 +1,4 @@
+Import-Module pscx
 $csProjPath = $env:PROJECT_CSPROJ_PATH
 $deployps1Path = $env:PROJECT_DEPLOY_PATH
 
