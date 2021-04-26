@@ -1,4 +1,3 @@
-Import-Module pscx
 $csProjPath = $env:PROJECT_CSPROJ_PATH
 $deployps1Path = $env:PROJECT_DEPLOY_PATH
 
@@ -9,12 +8,10 @@ if(!(Test-Path $deployps1Path))
 
 # Create build info file
 $buildInfoPath = "$($env:PROJECT_PATH)\NteuAppBuild.txt"
-$buildInfoFile = New-Item -path $buildInfoPath -type "file" -Force -Value "APPPOOL_NAME=$env:APPPOOL_NAME\nBUILD_DATE=$env:APPVEYOR_REPO_COMMIT_TIMESTAMP\nBUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
+New-Item -path $buildInfoPath -type "file" -Force -Value "APPPOOL_NAME=$env:APPPOOL_NAME`nBUILD_DATE=$env:APPVEYOR_REPO_COMMIT_TIMESTAMP`nBUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
 if (Test-Path $buildInfoPath) {Write-Host "Path $($buildInfoPath) created"} else {Write-Host "Path not created"}
 Write-Host "Added to folder"
-$files = Get-ChildItem $env:PROJECT_PATH
-Write-Host $files
-Write-Host "Build info content:\n"
+Write-Host "Build info content:"
 $fileContent = Get-Content $buildInfoPath
 Write-Host $fileContent
 Write-Host "Build info file created"
@@ -45,6 +42,8 @@ if(Test-Path $deployps1Path)
 	$buildInfo = $xml.CreateElement("Content", $xml.DocumentElement.NamespaceURI)
 	$buildInfo.SetAttribute("Include", 'NteuAppBuild.txt')
 	$mainFolderItemGroup.AppendChild($buildInfo)
+
+	Write-Host "Build info file created included in .csproj file"
 
 	$xml.Save($csProjPath)
 }
