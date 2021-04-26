@@ -42,7 +42,7 @@ if(Test-Path $deployps1Path)
 
 	# Add reference to build info file into csproj
 	$mainFolderItemGroup = $xml.Project.ItemGroup[3]
-	$buildInfo = $xml.mainFolderItemGroup("Content", $xml.DocumentElement.NamespaceURI)
+	$buildInfo = $xml.CreateElement("Content", $xml.DocumentElement.NamespaceURI)
 	$buildInfo.SetAttribute("Include", 'NteuAppBuild.txt')
 	$mainFolderItemGroup.AppendChild($buildInfo)
 
