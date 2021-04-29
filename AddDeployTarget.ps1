@@ -8,8 +8,7 @@ if(!(Test-Path $deployps1Path))
 
 # Create build info file
 $buildInfoPath = "$($env:PROJECT_PATH)\NteuAppBuild.txt"
-$TZ = [System.TimeZoneInfo]::FindSystemTimeZoneById($strCurrentTimeZone)
-$commitDateLocalTime = [System.TimeZoneInfo]::ConvertTimeFromUtc($env:APPVEYOR_REPO_COMMIT_TIMESTAMP, $TZ)
+$commitDateLocalTime = [DateTime]$env:APPVEYOR_REPO_COMMIT_TIMESTAMP
 $buildDate = Get-Date
 New-Item -path $buildInfoPath -type "file" -Force -Value "APPPOOL_NAME=$env:APPPOOL_NAME`r`nCOMMIT_DATE=$commitDateLocalTime`r`nBUILD_DATE=$buildDate`r`nBUILD_VERSION=$env:APPVEYOR_BUILD_VERSION"
 if (Test-Path $buildInfoPath) {Write-Host "Path $($buildInfoPath) created"} else {Write-Host "Path not created"}
